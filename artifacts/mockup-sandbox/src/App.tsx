@@ -1,149 +1,111 @@
 import React, { useState } from 'react';
 
-// বাস্তব ও দরকারি স্কলারশিপের ডেটাবেজ
 const scholarshipData = [
-  {
-    id: 1,
-    title: "Erasmus Mundus Joint Masters",
-    authority: "European Union",
-    degree: "Masters",
-    coverage: "Full-Funded",
-    country: "Europe",
-    amount: "Fully Covered + Monthly Stipend",
-    deadline: "০১ মার্চ, ২০২৭",
-    link: "https://europa.eu"
-  },
-  {
-    id: 2,
-    title: "Chevening Scholarship",
-    authority: "UK Government",
-    degree: "Masters",
-    coverage: "Full-Funded",
-    country: "United Kingdom",
-    amount: "Full Tuition + Living Allowance",
-    deadline: "০৫ নভেম্বর, ২০২৬",
-    link: "https://chevening.org"
-  },
-  {
-    id: 3,
-    title: "Fulbright Foreign Student Program",
-    authority: "US Government",
-    degree: "Masters / PhD",
-    coverage: "Full-Funded",
-    country: "USA",
-    amount: "Full Tuition + Airfare + Insurance",
-    deadline: "১৫ ফেব্রুয়ারি, ২০২৭",
-    link: "https://fulbrightonline.org"
-  },
-  {
-    id: 4,
-    title: "MEXT Scholarship",
-    authority: "Japanese Government",
-    degree: "Bachelors / Masters / PhD",
-    coverage: "Full-Funded",
-    country: "Japan",
-    amount: "100% Tuition Fee + Stipend",
-    deadline: "৩০ মে, ২০২৭",
-    link: "https://mext.go.jp"
-  },
-  {
-    id: 5,
-    title: "PM ICT Fellowship",
-    authority: "Bangladesh Government",
-    degree: "Masters / PhD",
-    coverage: "Partial-Funded",
-    country: "Bangladesh",
-    amount: "Research Grant & Honorarium",
-    deadline: "২০ ডিসেম্বর, ২০২৬",
-    link: "https://ictd.gov.bd"
-  }
+  { id: 1, title: "MIT Financial Aid Program", sponsor: "MIT, USA", amount: "100% Need Aid", deadline: "Feb 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://mit.edu" },
+  { id: 2, title: "Harvard Financial Aid Fellowship", sponsor: "Harvard University, USA", amount: "Full Ride Funding", deadline: "Jan 01, 2027", category: "Bachelors", type: "Full-Funded", link: "https://harvard.edu" },
+  { id: 3, title: "Princeton Financial Aid Promise", sponsor: "Princeton University, USA", amount: "Full Cost Coverage", deadline: "Jan 01, 2027", category: "Bachelors", type: "Full-Funded", link: "https://princeton.edu" },
+  { id: 4, title: "Yale Financial Aid Program", sponsor: "Yale University, USA", amount: "100% Need Met", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://yale.edu" },
+  { id: 5, title: "Amherst Financial Aid Grant", sponsor: "Amherst College, USA", amount: "Full Need Grant", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://amherst.edu" },
+  { id: 6, title: "Bowdoin Need-Based Aid", sponsor: "Bowdoin College, USA", amount: "100% Financial Aid", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://bowdoin.edu" },
+  { id: 7, title: "Brown University Scholarship", sponsor: "Brown University, USA", amount: "Full Tuition & Living", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://brown.edu" },
+  { id: 8, title: "Dartmouth Financial Aid", sponsor: "Dartmouth College, USA", amount: "Need-Blind Full Ride", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://dartmouth.edu" },
+  { id: 9, title: "Stanford Scholarship Fund", sponsor: "Stanford University, USA", amount: "Full Tuition + Expenses", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://stanford.edu" },
+  { id: 10, title: "Columbia University Grants", sponsor: "Columbia University, USA", amount: "100% Need Met", deadline: "Jan 01, 2027", category: "Bachelors", type: "Full-Funded", link: "https://columbia.edu" },
+  { id: 11, title: "UPenn Financial Aid Award", sponsor: "University of Pennsylvania, USA", amount: "Full Cost Coverage", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://upenn.edu" },
+  { id: 12, title: "Williams College Grant", sponsor: "Williams College, USA", amount: "Full Ride Funding", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://williams.edu" },
+  { id: 13, title: "Pomona College Financial Aid", sponsor: "Pomona College, USA", amount: "100% Need Met", deadline: "Jan 08, 2027", category: "Bachelors", type: "Full-Funded", link: "https://pomona.edu" },
+  { id: 14, title: "Swarthmore College Fellowship", sponsor: "Swarthmore College, USA", amount: "Full Ride Package", deadline: "Jan 04, 2027", category: "Bachelors", type: "Full-Funded", link: "https://swarthmore.edu" },
+  { id: 15, title: "Colby College Aid Promise", sponsor: "Colby College, USA", amount: "100% Financial Aid", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://colby.edu" },
+  { id: 16, title: "Wellesley College Grant", sponsor: "Wellesley College, USA", amount: "Full Financial Aid", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://wellesley.edu" },
+  { id: 17, title: "Carleton College Scholarship", sponsor: "Carleton College, USA", amount: "Full Tuition & Living", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://carleton.edu" },
+  { id: 18, title: "Haverford Scholarship", sponsor: "Haverford College, USA", amount: "100% Met Need Assistance", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://haverford.edu" },
+  { id: 19, title: "Rice University Financial Aid", sponsor: "Rice University, USA", amount: "Full Ride Support", deadline: "Jan 04, 2027", category: "Bachelors", type: "Full-Funded", link: "https://rice.edu" },
+  { id: 20, title: "Duke Robertson Scholars Program", sponsor: "Duke University, USA", amount: "Full Ride Scholarship", deadline: "Nov 15, 2026", category: "Bachelors", type: "Full-Funded", link: "https://duke.edu" },
+  { id: 21, title: "Vanderbilt Merit Scholarships", sponsor: "Vanderbilt University, USA", amount: "Full Tuition Awards", deadline: "Dec 01, 2026", category: "Bachelors", type: "Full-Funded", link: "https://vanderbilt.edu" },
+  { id: 22, title: "Notre Dame Financial Aid", sponsor: "University of Notre Dame, USA", amount: "100% Need Met", deadline: "Jan 01, 2027", category: "Bachelors", type: "Full-Funded", link: "https://nd.edu" },
+  { id: 23, title: "Northwestern Need-Based Aid", sponsor: "Northwestern University, USA", amount: "Full Tuition Support", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://northwestern.edu" },
+  { id: 24, title: "UChicago Odyssey Scholars", sponsor: "University of Chicago, USA", amount: "Full Ride Funding", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://uchicago.edu" },
+  { id: 25, title: "WashU Signature Scholars Program", sponsor: "Washington University, USA", amount: "Full Ride Merit Award", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://wustl.edu" },
+  { id: 26, title: "Grinnell Financial Aid", sponsor: "Grinnell College, USA", amount: "100% Need Met", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://grinnell.edu" },
+  { id: 27, title: "Macalester International Grant", sponsor: "Macalester College, USA", amount: "Full Tuition to Cost Aid", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://macalester.edu" },
+  { id: 28, title: "Middlebury Institutional Grant", sponsor: "Middlebury College, USA", amount: "100% Met Need Package", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://middlebury.edu" },
+  { id: 29, title: "Hamilton Financial Aid Award", sponsor: "Hamilton College, USA", amount: "Full Ride Opportunity", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://hamilton.edu" },
+  { id: 30, title: "Tufts International Grant", sponsor: "Tufts University, USA", amount: "Full Demonstrated Need", deadline: "Jan 04, 2027", category: "Bachelors", type: "Full-Funded", link: "https://tufts.edu" },
+  { id: 31, title: "Freeman Asian Scholars", sponsor: "Wesleyan University, USA", amount: "Full Ride Coverage", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://wesleyan.edu" },
+  { id: 32, title: "Smith College Need Grant", sponsor: "Smith College, USA", amount: "Full Demonstrated Need", deadline: "Jan 25, 2027", category: "Bachelors", type: "Full-Funded", link: "https://smith.edu" },
+  { id: 33, title: "Vassar International Grant", sponsor: "Vassar College, USA", amount: "100% Met Financial Aid", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://vassar.edu" },
+  { id: 34, title: "Marquis Fellowship", sponsor: "Lafayette College, USA", amount: "Full Tuition & Grants", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://lafayette.edu" },
+  { id: 35, title: "Gettysburg International Award", sponsor: "Gettysburg College, USA", amount: "Up to Full Tuition Aid", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://gettysburg.edu" },
+  { id: 36, title: "Denison Institutional Merit Grant", sponsor: "Denison University, USA", amount: "Full Tuition Merit Awards", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://denison.edu" },
+  { id: 37, title: "Kenyon International Fellowship", sponsor: "Kenyon College, USA", amount: "Full Demonstrated Need", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://kenyon.edu" },
+  { id: 38, title: "John Montgomery Belk Scholarship", sponsor: "Davidson College, USA", amount: "Full Ride Award", deadline: "Dec 15, 2026", category: "Bachelors", type: "Full-Funded", link: "https://davidson.edu" },
+  { id: 39, title: "Emory University Scholars", sponsor: "Emory University, USA", amount: "Full Tuition Merit Support", deadline: "Nov 15, 2026", category: "Bachelors", type: "Full-Funded", link: "https://emory.edu" },
+  { id: 40, title: "Johns Hopkins Need Aid", sponsor: "Johns Hopkins University, USA", amount: "Full Cost Coverage (No Loans)", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://jhu.edu" },
+  { id: 41, title: "Cornell Financial Aid Program", sponsor: "Cornell University, USA", amount: "100% Need-Based Grant", deadline: "Jan 02, 2027", category: "Bachelors", type: "Full-Funded", link: "https://cornell.edu" },
+  { id: 42, title: "Rochester Merit & Need Support", sponsor: "University of Rochester, USA", amount: "Full Tuition Scholarships", deadline: "Jan 05, 2027", category: "Bachelors", type: "Full-Funded", link: "https://rochester.edu" },
+  { id: 43, title: "CWRU University Scholarship", sponsor: "Case Western Reserve, USA", amount: "Full Tuition Awards", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://case.edu" },
+  { id: 44, title: "Clark Global Scholars Program", sponsor: "Clark University, USA", amount: "$15,000 to $25,000 Annual Grant", deadline: "Nov 15, 2026", category: "Bachelors", type: "Partial-Funded", link: "https://clarku.edu" },
+  { id: 45, title: "Trinity International Aid", sponsor: "Trinity College, USA", amount: "100% Need Support", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://trincoll.edu" },
+{ id: 46, title: "Union College Financial Aid", sponsor: "Union College, USA", amount: "Full Ride & Need Fellowships", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://union.edu" },
+{ id: 47, title: "Berea College Tuition Promise", sponsor: "Berea College, USA", amount: "100% Funding for 4 Years", deadline: "Jan 15, 2027", category: "Bachelors", type: "Full-Funded", link: "https://berea.edu" },
+{ id: 48, title: "UCL Global Scholarship", sponsor: "University College London, UK", amount: "Full Tuition & Living", deadline: "Apr 24, 2027", category: "Bachelors", type: "Full-Funded", link: "https://ucl.ac.uk" },
+{ id: 49, title: "Lester B. Pearson Scholarship", sponsor: "University of Toronto, Canada", amount: "4 Years Full Ride Coverage", deadline: "Nov 06, 2026", category: "Bachelors", type: "Full-Funded", link: "https://utoronto.ca" },
+{ id: 50, title: "International Leader Award", sponsor: "University of British Columbia, Canada", amount: "Full Ride Tuition & Living", deadline: "Dec 01, 2026", category: "Bachelors", type: "Full-Funded", link: "https://ubc.ca" }
 ];
-
 export default function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDegree, setSelectedDegree] = useState('');
-  const [selectedCoverage, setSelectedCoverage] = useState('');
+const [searchQuery, setSearchQuery] = useState('');
+const [typeFilter, setTypeFilter] = useState('');
+const filteredScholarships = scholarshipData.filter(item => {
+return (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+item.sponsor.toLowerCase().includes(searchQuery.toLowerCase())) &&
+(typeFilter === '' || item.type === typeFilter);
+});
+return (
+<div style={{ backgroundColor: '#fcfbf7', minHeight: '100vh', fontFamily: 'sans-serif', color: '#1a3028', paddingBottom: '30px' }}>
+{/* Header */}
+<span style={{ background: '#1a3028', color: 'white', padding: '8px', borderRadius: '50%', display: 'inline-flex' }}>🎓
+Scholarship Finder
+{/* Hero */}
+<div style={{ backgroundColor: '#1a3028', color: '#fcfbf7', padding: '40px 20px' }}>
+<h1 style={{ fontSize: '2rem', margin: '0 0 10px 0' }}>Your next step deserves a little support.
+<p style={{ color: '#c2d5cd', margin: 0 }}>Explore elite financial aid and top university scholarships curated for your profile.
+{/* Controls */}
+<div style={{ maxWidth: '1100px', margin: '30px auto', padding: '0 20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+<input
+type="text"
+placeholder="Search by university..."
+value={searchQuery}
+onChange={(e) => setSearchQuery(e.target.value)}
+style={{ flex: 2, padding: '12px', borderRadius: '30px', border: '1px solid #eaddca', outline: 'none' }}
+/>
+<select
+value={typeFilter}
+onChange={(e) => setTypeFilter(e.target.value)}
+style={{ flex: 1, padding: '12px', borderRadius: '30px', border: '1px solid #eaddca', background: '#fff' }}
+>
+All Funding
+Full-Funded
+Partial-Funded
 
-  // ফিল্টারিং লজিক
-  const filteredScholarships = scholarshipData.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          item.country.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDegree = selectedDegree === '' || item.degree.includes(selectedDegree);
-    const matchesCoverage = selectedCoverage === '' || item.coverage === selectedCoverage;
+{/* Grid List */}
+<div style={{ maxWidth: '1100px', margin: '20px auto', padding: '0 20px' }}>
+<h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '20px' }}>
+Opportunities to explore ({filteredScholarships.length})
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+{filteredScholarships.map(item => (
+<div key={item.id} style={{ backgroundColor: '#fff', border: '1px solid #eaddca', borderRadius: '8px', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
-    return matchesSearch && matchesDegree && matchesCoverage;
-  });
+<p style={{ fontSize: '0.8rem', color: '#b58a57', margin: '0 0 5px 0', fontWeight: 'bold' }}>{item.sponsor}
+<h3 style={{ fontSize: '1.1rem', margin: '0 0 10px 0', color: '#1a3028' }}>{item.title}
+<p style={{ fontWeight: 'bold', margin: '5px 0' }}>{item.amount}
+<p style={{ fontSize: '0.85rem', color: '#667a70', margin: '2px 0' }}>Level: {item.category}
+<p style={{ fontSize: '0.85rem', color: '#a0522d', margin: '2px 0' }}>Deadline: {item.deadline}
 
-  return (
-    <div style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#f3f4f6', minHeight: '100vh', paddingBottom: '40px', color: '#1f2937' }}>
+<a href={item.link} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: '#1a3028', color: '#fcfbf7', padding: '10px', borderRadius: '30px', textDecoration: 'none', marginTop: '15px', fontSize: '0.9rem' }}>
+Apply Now ↗
 
-      {/* আধুনিক হিরো সেকশন */}
-      <div style={{ backgroundColor: '#064e3b', color: 'white', textAlign: 'center', padding: '60px 20px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-        <h1 style={{ margin: '0 0 10px 0', fontSize: '2.5rem', fontWeight: '700' }}>আপনার স্বপ্নের স্কলারশিপটি খুঁজুন</h1>
-        <p style={{ opacity: 0.9, fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 20px auto', lineHeight: '1.5' }}>
-          দেশ ও যোগ্যতার ভিত্তিতে ফিল্টার করে সঠিক ও যাচাইকৃত তথ্যের মাধ্যমে সহজেই আবেদন করুন।
-        </p>
-      </div>
 
-      {/* সার্চ ও ফিল্টার এরিয়া */}
-      <div style={{ maxWidth: '1000px', margin: '-30px auto 40px auto', background: 'white', padding: '20px', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-        <input 
-          type="text" 
-          placeholder="কীওয়ার্ড বা দেশ দিয়ে খুঁজুন..." 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ flex: 2, minWidth: '250px', padding: '14px', border: '1px solid #d1d5db', borderRadius: '10px', fontSize: '15px', outline: 'none' }}
-        />
-        <select 
-          value={selectedDegree} 
-          onChange={(e) => setSelectedDegree(e.target.value)}
-          style={{ flex: 1, minWidth: '150px', padding: '14px', border: '1px solid #d1d5db', borderRadius: '10px', fontSize: '15px', background: 'white' }}
-        >
-          <option value="">ডিগ্রী (সবগুলো)</option>
-          <option value="Bachelors">Bachelors</option>
-          <option value="Masters">Masters</option>
-          <option value="PhD">PhD</option>
-        </select>
-        <select 
-          value={selectedCoverage} 
-          onChange={(e) => setSelectedCoverage(e.target.value)}
-          style={{ flex: 1, minWidth: '150px', padding: '14px', border: '1px solid #d1d5db', borderRadius: '10px', fontSize: '15px', background: 'white' }}
-        >
-          <option value="">ফান্ডিং (সবগুলো)</option>
-          <option value="Full-Funded">Full-Funded</option>
-          <option value="Partial-Funded">Partial-Funded</option>
-        </select>
-      </div>
+))}
 
-      {/* স্কলারশিপ গ্রিড লেআউট */}
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px', color: '#111827', fontWeight: '600' }}>Opportunities to explore</h2>
-
-        {filteredScholarships.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#6b7280', marginTop: '40px' }}>দুঃখিত! এই ফিল্টারে কোনো স্কলারশিপ পাওয়া যায়নি।</p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '25px' }}>
-            {filteredScholarships.map(scholarship => (
-              <div key={scholarship.id} style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'transform 0.2s', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                <div>
-                  <span style={{ background: scholarship.coverage === 'Full-Funded' ? '#e6f4ea' : '#fef3c7', color: scholarship.coverage === 'Full-Funded' ? '#137333' : '#d97706', fontWeight: '600', padding: '6px 14px', borderRadius: '20px', fontSize: '13px', display: 'inline-block', marginBottom: '15px' }}>
-                    {scholarship.coverage}
-                  </span>
-                  <h3 style={{ fontSize: '1.3rem', margin: '0 0 12px 0', color: '#064e3b', fontWeight: '700' }}>{scholarship.title}</h3>
-                  <p style={{ margin: '6px 0', fontSize: '14px', color: '#4b5563' }}><strong>📍 প্রতিষ্ঠান:</strong> {scholarship.authority}</p>
-                  <p style={{ margin: '6px 0', fontSize: '14px', color: '#4b5563' }}><strong>🌍 দেশ:</strong> {scholarship.country}</p>
-                  <p style={{ margin: '12px 0 6px 0', fontSize: '15px', fontWeight: '600', color: '#1f2937' }}>💰 {scholarship.amount}</p>
-                  <p style={{ color: '#b45309', fontWeight: '600', fontSize: '14px', margin: '8px 0 0 0' }}>📅 শেষ সময়: {scholarship.deadline}</p>
-                </div>
-                <a href={scholarship.link} target="_blank" rel="noopener noreferrer" style={{ background: '#064e3b', color: 'white', textAlign: 'center', padding: '12px', borderRadius: '10px', textDecoration: 'none', fontWeight: '600', display: 'block', marginTop: '20px', fontSize: '15px', transition: 'background 0.2s' }}>
-                  বিস্তারিত দেখুন ↗
-                </a>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-    </div>
-  );
+):
 }
