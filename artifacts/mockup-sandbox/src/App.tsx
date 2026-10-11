@@ -55,20 +55,21 @@ const scholarshipData = [
 export default function App() {
 const [searchQuery, setSearchQuery] = useState('');
 const [typeFilter, setTypeFilter] = useState('');
-const filteredScholarships = scholarshipData.filter(item => {
-return (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-item.sponsor.toLowerCase().includes(searchQuery.toLowerCase())) &&
-(typeFilter === '' || item.type === typeFilter);
-});
+    const filteredScholarships = scholarshipData.filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||                         item.sponsor.toLowerCase().includes(searchQuery.toLowerCase());
+     const matchesType = typeFilter === 'All' || typeFilter === '' || item.type === typeFilter;     return matchesSearch && matchesType;
+   });
+
 return (
 <div style={{ backgroundColor: '#fcfbf7', minHeight: '100vh', fontFamily: 'sans-serif', color: '#1a3028', paddingBottom: '30px' }}>
 {/* Header */}
-<span style={{ background: '#1a3028', color: 'white', padding: '8px', borderRadius: '50%', display: 'inline-flex' }}>🎓
+<div style={{ padding: '20px 20px 0 20px', maxWidth: '1100px', margin: '0 auto' }}></div>
+<span style={{ background: '#1a3028', color: 'white', padding: '8px', borderRadius: '50%', display: 'inline-flex' }}>🎓</span>
 Scholarship Finder
 {/* Hero */}
-<div style={{ backgroundColor: '#1a3028', color: '#fcfbf7', padding: '40px 20px' }}>
-<h1 style={{ fontSize: '2rem', margin: '0 0 10px 0' }}>Your next step deserves a little support.
-<p style={{ color: '#c2d5cd', margin: 0 }}>Explore elite financial aid and top university scholarships curated for your profile.
+<div style={{ backgroundColor: '#1a3028', color: '#fcfbf7', padding: '40px 20px' }}></div>
+<h1 style={{ fontSize: '2rem', margin: '0 0 10px 0' }}>Your next step deserves a little support.</h1>
+<p style={{ color: '#c2d5cd', margin: 0 }}>Explore elite financial aid and top university scholarships curated for your profile.</p>
 {/* Controls */}
 <div style={{ maxWidth: '1100px', margin: '30px auto', padding: '0 20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
 <input
@@ -83,29 +84,28 @@ value={typeFilter}
 onChange={(e) => setTypeFilter(e.target.value)}
 style={{ flex: 1, padding: '12px', borderRadius: '30px', border: '1px solid #eaddca', background: '#fff' }}
 >
-All Funding
-Full-Funded
-Partial-Funded
-
-{/* Grid List */}
-<div style={{ maxWidth: '1100px', margin: '20px auto', padding: '0 20px' }}>
-<h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '20px' }}>
-Opportunities to explore ({filteredScholarships.length})
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
-{filteredScholarships.map(item => (
-<div key={item.id} style={{ backgroundColor: '#fff', border: '1px solid #eaddca', borderRadius: '8px', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-
-<p style={{ fontSize: '0.8rem', color: '#b58a57', margin: '0 0 5px 0', fontWeight: 'bold' }}>{item.sponsor}
-<h3 style={{ fontSize: '1.1rem', margin: '0 0 10px 0', color: '#1a3028' }}>{item.title}
-<p style={{ fontWeight: 'bold', margin: '5px 0' }}>{item.amount}
-<p style={{ fontSize: '0.85rem', color: '#667a70', margin: '2px 0' }}>Level: {item.category}
-<p style={{ fontSize: '0.85rem', color: '#a0522d', margin: '2px 0' }}>Deadline: {item.deadline}
+<option value="All">All Funding</option>
+        <option value="Full-Funded">Full-Funded</option>
+       <option value="Partial-Funded">Partial-Funded</option>
+</select>
+  {/* Grid list */}
+<div style={{ width: '1100px', margin: '20px auto', padding: '0 20px' }}>
+<h2 style={{ fontSize: '1.2rem', font: 'bold', marginBottom: '20px' }}></h2>
+  Opportunities to explore ({filteredScholarships.length})
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>     {filteredScholarships.map(item => (
+  <div key={item.id} style={{ backgroundColor: '#fff', border: '1px solid #eaddca', borderRadius: '8px', padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+  97           <p style={{ fontSize: '0.8rem', color: '#b58a57', margin: '0 0 5px 0', fontWeight: 'bold' }}>{item.sponsor}</p>
+  98           <h3 style={{ fontSize: '1.1rem', margin: '0 0 10px 0', color: '#1a3028' }}>{item.title}</h3>
+<p style={{ fontWeight: 'bold', margin: '5px 0' }}>{item.amount}</p>
+<p style={{ fontSize: '0.85rem', color: '#667a70', margin: '2px 0' }}>Level: {item.category}</p>
+<p style={{ fontSize: '0.85rem', color: '#a0522d', margin: '2px 0' }}>Deadline: {item.deadline}</p>
 
 <a href={item.link} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', backgroundColor: '#1a3028', color: '#fcfbf7', padding: '10px', borderRadius: '30px', textDecoration: 'none', marginTop: '15px', fontSize: '0.9rem' }}>
-Apply Now ↗
-
-
-))}
-
-):
+  Apply Now ↗
+ </a>
+   </div>	
+ ))}
+ </div> 	</div> 		</div>										
+</div>
+)
 }
