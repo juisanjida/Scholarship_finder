@@ -1,59 +1,6 @@
  
-    import React, { useState } from 'react';
-
-    // আসল ও কার্যকর স্কলারশিপের তালিকা
-    const scholarshipData = [
-      {
-        id: 1,
-        title: "Erasmus Mundus Joint Masters",
-        sponsor: "European Union",
-        amount: "Fully Covered + Stipend",
-        deadline: "March 01, 2027",
-        category: "Masters",
-        type: "Full-Funded",
-        link: "https://europa.eu"
-      },
-      {
-        id: 2,
-        title: "Chevening Scholarship",
-        sponsor: "UK Government",
-        amount: "Tuition + Living Allowance",
-        deadline: "November 05, 2026",
-        category: "Masters",
-        type: "Full-Funded",
-        link: "https://chevening.org"
-      },
-      {
-        id: 3,
-        title: "Fulbright Foreign Student Program",
-        sponsor: "US Government",
-        amount: "Full Tuition + Airfare",
-        deadline: "February 15, 2027",
-        category: "Masters / PhD",
-        type: "Full-Funded",
-        link: "https://fulbrightonline.org"
-      },
-      {
-        id: 4,
-        title: "MEXT Japanese Government Scholarship",
-        sponsor: "Japanese Government",
-        amount: "100% Tuition + Stipend",
-        deadline: "May 30, 2027",
-        category: "Bachelors / Masters",
-        type: "Full-Funded",
-        link: "https://mext.go.jp"
-      },
-      {
-        id: 5,
-        title: "PM ICT Fellowship Fellowship",
-        sponsor: "Bangladesh Government",
-        amount: "Research Grant & Stipend",
-        deadline: "December 20, 2026",
-        category: "Masters / PhD",
-        type: "Partial-Funded",
-        link: "https://ictd.gov.bd"
-      }
-    ];
+import React, { useState } from 'react';
+import { scholarshipData } from '@/data/scholarships';
 
     export default function App() {
       const [searchQuery, setSearchQuery] = useState('');
@@ -89,6 +36,10 @@
               Find scholarships that fit your studies, your story, and where you want to go next.
             </p>
           </div>
+
+          <p style={{ maxWidth: '1100px', margin: '18px auto 0', padding: '0 20px', color: '#667a70', fontSize: '0.85rem', lineHeight: '1.5' }}>
+            Scholarship details and deadlines can change. Confirm current eligibility and dates with each sponsor before applying.
+          </p>
 
           {/* সার্চ এবং ফিল্টার বার */}
           <div style={{ maxWidth: '1100px', margin: '40px auto', padding: '0 20px' }}>
